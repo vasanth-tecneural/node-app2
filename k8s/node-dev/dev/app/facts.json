@@ -1,0 +1,81 @@
+{
+  "schema_version": 4,
+  "service_name": "app",
+  "service_path": "",
+  "runtime": "nodejs",
+  "framework": "express",
+  "workload_type": "web_service",
+  "workload_evidence": {
+    "location": "app.js:45",
+    "why": "app.listen(PORT, '0.0.0.0', ...) call — HTTP server"
+  },
+  "port": {
+    "value": 5000,
+    "source": "env_default",
+    "location": "app.js:11",
+    "env_driven": true
+  },
+  "bind_address": {
+    "value": "0.0.0.0",
+    "location": "app.js:45"
+  },
+  "health_route": {
+    "exists": true,
+    "path": "/health",
+    "location": "app.js:22"
+  },
+  "env_vars": [
+    {
+      "name": "PORT",
+      "required": true,
+      "location": "app.js:11",
+      "default": "5000"
+    },
+    {
+      "name": "NODE_ENV",
+      "required": false,
+      "location": ".env.example:1",
+      "default": null
+    },
+    {
+      "name": "DATABASE_URL",
+      "required": true,
+      "location": ".env.example:3",
+      "default": null
+    },
+    {
+      "name": "SECRET_KEY",
+      "required": true,
+      "location": ".env.example:4",
+      "default": null
+    }
+  ],
+  "entrypoint": {
+    "command": "node app.js",
+    "target_file": "app.js",
+    "location": "package.json:7"
+  },
+  "http_base_path": {
+    "path": "/api",
+    "location": "app.js:19"
+  },
+  "workload_details": {
+    "publishes_from_browser": true
+  },
+  "notes": [
+    "The app serves a React frontend statically from /public (app.js:27-31).",
+    "The backend API routes are mounted under /api (app.js:19).",
+    "Database connection uses Sequelize with DATABASE_URL env var (app.js:5, .env.example:3)."
+  ],
+  "security_profile": "standard",
+  "startup_class": "normal",
+  "db_env_keys": [
+    {
+      "name": "DATABASE_URL",
+      "kind": "url",
+      "location": ".env.example:3"
+    }
+  ],
+  "frontend_build_env": [],
+  "bundle_hash": "2e2e5c8e0bdcfc9d40b1a0d8e1142c66eb8d1868bd723861c32238d9c8dc0b0b"
+}
