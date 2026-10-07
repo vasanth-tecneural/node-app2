@@ -1,0 +1,84 @@
+{
+  "schema_version": 4,
+  "service_name": "app",
+  "service_path": "",
+  "runtime": "nodejs",
+  "framework": "express",
+  "workload_type": "web_service",
+  "workload_evidence": {
+    "location": "app.js:45",
+    "why": "app.listen(PORT, '0.0.0.0', ...) call — HTTP server"
+  },
+  "port": {
+    "value": 5000,
+    "source": "env_default",
+    "location": "app.js:11",
+    "env_driven": true
+  },
+  "bind_address": {
+    "value": "0.0.0.0",
+    "location": "app.js:45"
+  },
+  "health_route": {
+    "exists": true,
+    "path": "/health",
+    "location": "app.js:22"
+  },
+  "env_vars": [
+    {
+      "name": "PORT",
+      "required": true,
+      "location": "app.js:11",
+      "default": "5000"
+    },
+    {
+      "name": "NODE_ENV",
+      "required": false,
+      "location": ".env.example:1",
+      "default": null
+    },
+    {
+      "name": "DATABASE_URL",
+      "required": true,
+      "location": ".env.example:3",
+      "default": null
+    },
+    {
+      "name": "SECRET_KEY",
+      "required": true,
+      "location": ".env.example:4",
+      "default": null
+    }
+  ],
+  "entrypoint": {
+    "command": "node app.js",
+    "target_file": "app.js",
+    "location": "package.json:7"
+  },
+  "http_base_path": {
+    "path": "/api",
+    "location": "app.js:19"
+  },
+  "workload_details": {
+    "publishes_from_browser": true
+  },
+  "notes": [
+    "PORT is read from env with fallback 5000 (app.js:11).",
+    "Health route /health exists (app.js:22-24).",
+    "Express framework detected (package.json:15, app.js:1,25).",
+    "Static React frontend served from /public (app.js:27,30-32).",
+    "API routes mounted under /api (app.js:19).",
+    "DATABASE_URL and SECRET_KEY are required env vars (from .env.example)."
+  ],
+  "security_profile": "standard",
+  "startup_class": "normal",
+  "db_env_keys": [
+    {
+      "name": "DATABASE_URL",
+      "kind": "url",
+      "location": ".env.example:3"
+    }
+  ],
+  "frontend_build_env": [],
+  "bundle_hash": "2e2e5c8e0bdcfc9d40b1a0d8e1142c66eb8d1868bd723861c32238d9c8dc0b0b"
+}
