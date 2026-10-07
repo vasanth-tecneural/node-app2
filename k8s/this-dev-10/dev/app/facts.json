@@ -27,15 +27,9 @@
   "env_vars": [
     {
       "name": "PORT",
-      "required": true,
+      "required": false,
       "location": "app.js:11",
       "default": "5000"
-    },
-    {
-      "name": "NODE_ENV",
-      "required": false,
-      "location": ".env.example:1",
-      "default": null
     },
     {
       "name": "DATABASE_URL",
@@ -48,6 +42,12 @@
       "required": true,
       "location": ".env.example:4",
       "default": null
+    },
+    {
+      "name": "NODE_ENV",
+      "required": false,
+      "location": ".env.example:1",
+      "default": "production"
     }
   ],
   "entrypoint": {
@@ -63,12 +63,9 @@
     "publishes_from_browser": true
   },
   "notes": [
-    "PORT is read from env with fallback 5000 (app.js:11).",
-    "Health route /health exists (app.js:22-24).",
-    "Express framework detected (package.json:15, app.js:1,25).",
-    "Static React frontend served from /public (app.js:27,30-32).",
-    "API routes mounted under /api (app.js:19).",
-    "DATABASE_URL and SECRET_KEY are required env vars (from .env.example)."
+    "The app serves a React frontend from /public and proxies API routes under /api.",
+    "Dockerfile EXPOSEs port 5000 matching app.js PORT env default.",
+    "Health route /health exists and is used for readiness/liveness probes."
   ],
   "security_profile": "standard",
   "startup_class": "normal",
@@ -80,5 +77,5 @@
     }
   ],
   "frontend_build_env": [],
-  "bundle_hash": "2e2e5c8e0bdcfc9d40b1a0d8e1142c66eb8d1868bd723861c32238d9c8dc0b0b"
+  "bundle_hash": "9639646161865cfa591b0a474d64012cb8b324286f5c7cb2eee91e4be8ab75c7"
 }
