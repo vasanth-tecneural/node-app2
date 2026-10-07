@@ -93,4 +93,4 @@ EXPOSE 5000
 # readiness probe, which asks the app-defined path.
 HEALTHCHECK --interval=15s --timeout=5s --start-period=20s --retries=3 \
     CMD node -e "require('http').get('http://127.0.0.1:5000/', r => process.exit(r.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))"
-CMD ["sh", "-c", "export PATH=/app/node_modules/.bin:$PATH; exec node app.js"]
+CMD ["sh", "-c", "export PATH=/app/node_modules/.bin:$PATH; export PORT=5000; exec node app.js"]

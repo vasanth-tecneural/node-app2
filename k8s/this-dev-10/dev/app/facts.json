@@ -7,7 +7,7 @@
   "workload_type": "web_service",
   "workload_evidence": {
     "location": "app.js:45",
-    "why": "app.listen(PORT, '0.0.0.0') call — HTTP server"
+    "why": "app.listen(PORT, '0.0.0.0', ...) call — HTTP server"
   },
   "port": {
     "value": 5000,
@@ -59,12 +59,15 @@
     "path": "/api",
     "location": "app.js:19"
   },
+  "workload_details": {
+    "publishes_from_browser": true
+  },
   "notes": [
-    "The app serves a React frontend statically from /public (app.js:27-31).",
+    "The app serves a React frontend from /public and proxies API calls under /api.",
+    "The Dockerfile EXPOSEs port 5000 (Dockerfile:83).",
     "The app reads PORT from env and fails fast if missing (app.js:11).",
-    "Dockerfile EXPOSE 5000 matches the app port (Dockerfile:83).",
-    "Health route /health exists and is used in probes (app.js:22-24).",
-    "The app binds 0.0.0.0 explicitly (app.js:45)."
+    "Health route /health exists and is used for readiness/liveness probes.",
+    "Database connection via Sequelize uses DATABASE_URL env var."
   ],
   "security_profile": "standard",
   "startup_class": "normal",
@@ -76,5 +79,5 @@
     }
   ],
   "frontend_build_env": [],
-  "bundle_hash": "c27b6bb407d485716b76cda0a06b1d893ec0ba31b90d8f1bd3a53f29aafe2f7a"
+  "bundle_hash": "b959f9cfd5f25dd99b40289f8544015ba02e9eeadeba68c6a07ec27c350b00a4"
 }
