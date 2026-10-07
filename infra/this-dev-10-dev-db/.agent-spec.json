@@ -22,7 +22,7 @@
     "region": "us-east-1",
     "engine": "postgres",
     "engineVersion": "18.3",
-    "instanceClass": "db.t4g.micro",
+    "instanceClass": "db.t3.micro",
     "eksClusterName": "this-dev-10-dev",
     "env": "dev",
     "initialDbName": "app"
