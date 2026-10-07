@@ -66,7 +66,7 @@ ENV NODE_ENV=production
 # General caches belong on the pod's one writable mount (the /tmp
 # emptyDir; the root filesystem is read-only under the restricted
 # profile). The SWC native binding deliberately does NOT rely on this —
-t# it is baked next to binding.js at build time above, because swc
+# it is baked next to binding.js at build time above, because swc
 # refuses any cache under a non-sticky world-writable parent and a
 # Kubernetes emptyDir is exactly that.
 ENV XDG_CACHE_HOME=/tmp/.cache
