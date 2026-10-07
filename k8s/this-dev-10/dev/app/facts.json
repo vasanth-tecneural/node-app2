@@ -27,7 +27,7 @@
   "env_vars": [
     {
       "name": "PORT",
-      "required": false,
+      "required": true,
       "location": "app.js:11",
       "default": "5000"
     },
@@ -38,16 +38,16 @@
       "default": null
     },
     {
-      "name": "SECRET_KEY",
-      "required": true,
-      "location": ".env.example:4",
-      "default": null
-    },
-    {
       "name": "NODE_ENV",
       "required": false,
       "location": ".env.example:1",
       "default": "production"
+    },
+    {
+      "name": "SECRET_KEY",
+      "required": true,
+      "location": ".env.example:4",
+      "default": null
     }
   ],
   "entrypoint": {
@@ -63,9 +63,13 @@
     "publishes_from_browser": true
   },
   "notes": [
-    "The app serves a React frontend from /public and proxies API routes under /api.",
-    "Dockerfile EXPOSEs port 5000 matching app.js PORT env default.",
-    "Health route /health exists and is used for readiness/liveness probes."
+    "PORT is read from env with a default of 5000 (app.js:11).",
+    "Health route /health exists and returns 200 (app.js:22-24).",
+    "Express framework detected (package.json:15, app.js:1, app.js:19).",
+    "Static files served from /public (app.js:27-31), but workload classified as web_service due to app.listen.",
+    "Database connection via Sequelize (app.js:5, 38).",
+    "Env vars include DATABASE_URL and SECRET_KEY which are required to boot.",
+    "Docker Compose exposes port 3000 but app listens on 5000 (docker-compose.yml:7 vs app.js:11). This is a mismatch to fix in manifests."
   ],
   "security_profile": "standard",
   "startup_class": "normal",
@@ -77,5 +81,5 @@
     }
   ],
   "frontend_build_env": [],
-  "bundle_hash": "9639646161865cfa591b0a474d64012cb8b324286f5c7cb2eee91e4be8ab75c7"
+  "bundle_hash": "8995b86c455ad1e0ad728e176a4b53da921bd94506bf7a4d1d16488a1278256f"
 }
